@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head><title>Colonial Marines Catalog</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<script>
+		function goBack() {
+			window.history.back();
+		}
+	</script>
+</head>
+<body>
+
+	<header class="header">
+		<div class="header-profiletext">
+			<h1 class="header-text">U.S.C.M. Equipment Catalog</h1>
+		</div>
+	</header>
+
+	<main>
+		<section class="main-content">
+			<hr>
+			<div class="content-container">
+				<div class="content edit">
+					<!--This returns the cateogry name-->
+					<p>Category: {{catName.name}}</p>
+				</div>
+				<div class="content items">
+					<!--This returns the gun selected from the Items page-->
+					<p>Current Name: {{gunInfo.name}}
+					<br>
+					<br>
+					<!--This starts the form data-->
+					<form id='inputdata' action="{{url_for('editPage', categorys_id=gunInfo.categorys_id, item_id=gunInfo.id)}}" method = 'POST'>
+						<!--This is an entry for the name of firearm-->
+						<p>Name:  <input type='text' size='30' name='name' placeholder='{{gunInfo.name}}'></p>
+						<br>
+						<!--This is the description field for the gun entered.-->
+						<p>Description:</p>
+						<textarea class="input description" form='inputdata' name='description' rows="6" cols="60"></textarea>
+						<br>
+						<br>
+						<!--If Submit is selected than the user is returned to the items page, else the return button can be used to cancel.-->
+						<input type='submit' value='Submit'>
+					</form>
+					<button class="goback" onclick="goBack()">Return</button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<h3>Weyland-Yutani</h3>
+	</footer>
+
+</body>
+</html>

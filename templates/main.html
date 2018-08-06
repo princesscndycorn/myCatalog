@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head><title>Colonial Marines Catalog</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<!--This function runs the /gdisconnect path, if it recieves 
+		"Successfully disconnected." from the server you are returned to the homepage -->
+	<script>
+		function signOut() {
+			$.get("/gdisconnect", function(data, status) {
+				if (data) {
+					$('#data').html('"Successfully disconnected."')
+					window.location.href = "/home";
+				} else {
+					console.log('There was an error: ')
+				}	
+			});
+		}
+	</script>
+</head>
+<body>
+
+	<header class="header">
+		<div class="header-profiletext">
+			<h1 class="header-text">U.S.C.M. Equipment Catalog</h1>
+		</div>
+		<div class="logout">
+			<!--This calls the signOut function on click-->
+			<a href="#" onclick="signOut();">Sign out</a>
+		</div>
+	</header>
+
+	<main>
+		<section class="main-content">
+			<hr>
+			<!--Returns the name of the user that is logged in-->
+			<div class="flash">
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<ul>
+				{% for message in messages %}
+					<strong>{{message}}</strong>
+					{% endfor %}
+				</ul>
+				{% endif %}
+				{% endwith %}
+			</div>
+			<div class="content-container">
+				<div class="content categorys">
+					<!--Lists all categorys from the database-->
+					<p>Categorys</p>
+					<br>
+					{% for i in categorys %}
+					<a href='{{url_for('showCat',categorys_id=i.id)}}'>{{i.name}}</a>
+					<br>
+					{% endfor %}
+				</div>
+				<div class="content items">
+					<p>Items</p>
+					<br>
+					<p>Please click on the links to the left.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<h3>Weyland-Yutani</h3>
+	</footer>
+
+</body>
+</html>

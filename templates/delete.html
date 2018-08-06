@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head><title>Colonial Marines Catalog</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-profiletext">
+            <h1 class="header-text">U.S.C.M. Equipment Catalog</h1>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-content">
+            <hr>
+            <div class="content-container">
+                <div class="content items">
+                    <!--Prints out a confirmation text on which gun is to be deleted.-->
+                    <h2>Are you sure you want to delete: {{gunInfo.name}}</h2>
+                    <br>
+                    <br>
+                    <!--Start of the form data-->
+                    <form id='deletedata' acton="{{url_for('deletePage', item_id=gunInfo.id, categorys_id=gunInfo.categorys_id)}}" method='POST'>
+                        <!--If delele is clicked, the entry in the database is removed, and the user is returned to the category they started.-->
+                        <input type='submit' value='Delete'>
+                    </form>
+                    <!--If return is clicked the user is returned to the category they started-->
+                    <input type="button" onclick="location.href='{{url_for('showCat', categorys_id=gunInfo.categorys_id)}}';" value="Return"/>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h3>Weyland-Yutani</h3>
+    </footer>
+
+</body>
+</html>

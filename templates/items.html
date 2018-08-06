@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head><title>Colonial Marines Catalog</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<!--This function runs the /gdisconnect path, if it recieves 
+		"Successfully disconnected." from the server you are returned to the homepage -->
+	<script>
+		function signOut() {
+			$.get("/gdisconnect", function(data, status) {
+				if (data) {
+					$('#data').html('"Successfully disconnected."')
+					window.location.href = "/home";
+				} else {
+					console.log('There was an error: ')
+				}	
+			});
+		}
+	</script>
+</head>
+<body>
+
+	<header class="header">
+		<div class="header-profiletext">
+			<h1 class="header-text">U.S.C.M. Equipment Catalog</h1>
+		</div>
+		<div class="logout">
+			<!--This calls the signOut fucntion from above-->
+			<a href="#" onclick="signOut();">Sign out</a>
+		</div>
+	</header>
+
+	<main>
+		<section class="main-content">
+			<hr>
+			<div class="content-container">
+				<div class="content categorys">
+					<!--This prints out all categorys from the database-->
+					<p>Categorys</p>
+					<br>
+					{% for i in category %}
+					<a href='{{url_for('showCat',categorys_id=i.id)}}'>{{i.name}}</a>
+					<br>
+					{% endfor %}
+				</div>
+				<div class="content items">
+					<!--This prints out all items from the database for the category selected-->
+					<p>{{catName.name}}</p>
+					<br>
+					{% for i in items %}
+					<a href='{{url_for('itemDescription', categorys_id=i.categorys_id, item_id=i.id)}}'>{{i.name}}</a>
+					<br>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="addButton">
+				<br>
+				<!--This button can be used to add an item in the category current under-->
+				<input type="button" onclick="location.href='{{url_for('addItem', categorys_id=categorys_id)}}';" value="Add Item"/>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<h3>Weyland-Yutani</h3>
+	</footer>
+
+</body>
+</html>

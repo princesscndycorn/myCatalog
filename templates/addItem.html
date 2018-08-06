@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head><title>Colonial Marines Catalog</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<header class="header">
+		<div class="header-profiletext">
+			<h1 class="header-text">U.S.C.M. Equipment Catalog</h1>
+		</div>
+	</header>
+
+	<main>
+		<section class="main-content">
+			<hr>
+			<div class="content-container">
+				<div class="content edit">
+					<!--This will print the Category Name-->
+					<p>Category: {{catName.name}}</p>
+				</div>
+				<div class="content items">
+					<br>
+					<br>
+					<!-- This is the form information -->
+					<form id='inputdata' action="{{url_for('addItem', categorys_id=categorys_id)}}" method="POST">
+						<!--This shows an entry field for the name of a gun in qeustion-->
+						<p>Name:  <input type='text' size='30' name='name' placeholder='Gun Name'></p>
+						<br>
+						<!--This shows a text input box where the description of the gun is entered-->
+						<p>Description:</p>
+						<textarea class="input description" form='inputdata' name='description' rows="6" cols="60"></textarea>
+						<br>
+						<br>
+						<p>
+						<!--Once submit is clicked, the form data is sent to the server-->
+						<input type='submit' value='Submit'>
+						<!--If return is clicked, user is returned to the category they started from -->
+						<input type="button" onclick="location.href='{{url_for('showCat', categorys_id=categorys_id)}}';" value="Return"/>
+						</p>
+					</form>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<h3>Weyland-Yutani</h3>
+	</footer>
+
+</body>
+</html>
